@@ -5,6 +5,9 @@ import com.shpp.cs.a.graphics.WindowProgram;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class MouseLoop extends WindowProgram {
 
     /**
@@ -18,14 +21,15 @@ public class MouseLoop extends WindowProgram {
     public static final int N = 12;
     public static final double RATIO = 16.0;
     private GRect square;
+    ArrayList<Double> array = new ArrayList<>();
 
 
     public void run() {
         double sideSquare = (getWidth() / RATIO);
         addMouseListeners();
         drawRectangle(sideSquare);
-        square = drawSquare(sideSquare);
-        moveBlueSquare();
+//        square = drawSquare(sideSquare);
+        moveBlueSquare(sideSquare);
     }
 
     private GRect drawSquare(double sideSquare) {
@@ -36,22 +40,80 @@ public class MouseLoop extends WindowProgram {
         return null;
     }
 
-    private void moveBlueSquare() {
+    private void moveBlueSquare(double sideSquare) {
         while (true) {
+            for (int i = 0; i < M; i++) {
+                for (int j = 0; j < N; j++) {
+                    GRect square = new GRect(SQUARE_OFFSET + (sideSquare * i), SQUARE_OFFSET +
+                            (sideSquare * j), sideSquare, sideSquare);
+                    square.setFilled(true);
+                    square.setFillColor(Color.BLUE);
+                    if (i == 0 || j == N - 1) {
+                        add(square);
+                        pause(200);
+                        remove(square);
+                    }
+                }
+            }
 
+            for (int i = M; i > 0; i--) {
+                for (int j = N - 1; j >= 0; j--) {
+                    GRect square = new GRect(SQUARE_OFFSET + (sideSquare * i), SQUARE_OFFSET +
+                            (sideSquare * j), sideSquare, sideSquare);
+                    square.setFilled(true);
+                    square.setFillColor(Color.BLUE);
+                    if (i == M - 1) {
+                        add(square);
+                        pause(200);
+                        remove(square);
+                    }
+                }
+            }
+
+            for (int i = M - 1; i >= 0; i--) {
+                GRect square = new GRect(SQUARE_OFFSET +
+                        (sideSquare * i), SQUARE_OFFSET, sideSquare, sideSquare);
+                square.setFilled(true);
+                square.setFillColor(Color.BLUE);
+                add(square);
+                pause(200);
+                remove(square);
+            }
         }
     }
+
 
     private void drawRectangle(double sideSquare) {
         for (int i = 0; i < M; i++) {
             for (int j = 0; j < N; j++) {
-                GRect square = new GRect(SQUARE_OFFSET + (sideSquare * i), SQUARE_OFFSET + (sideSquare * j), sideSquare, sideSquare);
+                GRect square = new GRect(SQUARE_OFFSET + (sideSquare * i),
+                        SQUARE_OFFSET + (sideSquare * j), sideSquare, sideSquare);
                 square.setFilled(true);
                 square.setFillColor(Color.GREEN);
-                if (i == 0 || i == M - 1 || j == 0 || j == N - 1) {
+                if (i == 0 || j == N - 1) {
                     add(square);
                 }
             }
+        }
+
+        for (int i = M; i > 0; i--) {
+            for (int j = N - 1; j >= 0; j--) {
+                GRect square = new GRect(SQUARE_OFFSET + (sideSquare * i),
+                        SQUARE_OFFSET + (sideSquare * j), sideSquare, sideSquare);
+                square.setFilled(true);
+                square.setFillColor(Color.GREEN);
+                if (i == M - 1) {
+                    add(square);
+                }
+            }
+        }
+
+        for (int i = M - 1; i >= 0; i--) {
+            GRect square = new GRect(SQUARE_OFFSET + (sideSquare * i),
+                    SQUARE_OFFSET, sideSquare, sideSquare);
+            square.setFilled(true);
+            square.setFillColor(Color.GREEN);
+            add(square);
         }
     }
 }
