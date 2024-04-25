@@ -44,11 +44,11 @@ public class MouseLoop extends WindowProgram {
         while (true) {
             for (int i = 0; i < M; i++) {
                 for (int j = 0; j < N; j++) {
+                    if (i == 0 || j == N - 1) {
                     GRect square = new GRect(SQUARE_OFFSET + (sideSquare * i), SQUARE_OFFSET +
                             (sideSquare * j), sideSquare, sideSquare);
                     square.setFilled(true);
                     square.setFillColor(Color.BLUE);
-                    if (i == 0 || j == N - 1) {
                         add(square);
                         pause(200);
                         remove(square);
@@ -58,11 +58,11 @@ public class MouseLoop extends WindowProgram {
 
             for (int i = M; i > 0; i--) {
                 for (int j = N - 1; j >= 0; j--) {
+                    if (i == M - 1) {
                     GRect square = new GRect(SQUARE_OFFSET + (sideSquare * i), SQUARE_OFFSET +
                             (sideSquare * j), sideSquare, sideSquare);
                     square.setFilled(true);
                     square.setFillColor(Color.BLUE);
-                    if (i == M - 1) {
                         add(square);
                         pause(200);
                         remove(square);
@@ -86,11 +86,11 @@ public class MouseLoop extends WindowProgram {
     private void drawRectangle(double sideSquare) {
         for (int i = 0; i < M; i++) {
             for (int j = 0; j < N; j++) {
+                if (i == 0 || j == N - 1) {
                 GRect square = new GRect(SQUARE_OFFSET + (sideSquare * i),
                         SQUARE_OFFSET + (sideSquare * j), sideSquare, sideSquare);
                 square.setFilled(true);
                 square.setFillColor(Color.GREEN);
-                if (i == 0 || j == N - 1) {
                     add(square);
                 }
             }
@@ -98,11 +98,11 @@ public class MouseLoop extends WindowProgram {
 
         for (int i = M; i > 0; i--) {
             for (int j = N - 1; j >= 0; j--) {
+                if (i == M - 1) {
                 GRect square = new GRect(SQUARE_OFFSET + (sideSquare * i),
                         SQUARE_OFFSET + (sideSquare * j), sideSquare, sideSquare);
                 square.setFilled(true);
                 square.setFillColor(Color.GREEN);
-                if (i == M - 1) {
                     add(square);
                 }
             }
