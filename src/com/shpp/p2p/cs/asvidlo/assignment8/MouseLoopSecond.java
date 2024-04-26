@@ -4,6 +4,7 @@ import acm.graphics.GRect;
 import com.shpp.cs.a.graphics.WindowProgram;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class MouseLoopSecond extends WindowProgram {
@@ -18,14 +19,15 @@ public class MouseLoopSecond extends WindowProgram {
     public static final int M = 8;
     public static final int N = 12;
     public static final double RATIO = 16.0;
-    private GRect square;
-    ArrayList<Double> array = new ArrayList<>();
 
     ArrayList<GRect> list = new ArrayList<>();
-    int currentBlue = 1;
-    int cu = 2;
+    int currentBlue = 11;
+    int currentRed = 0;
+
+    int currentSelected = -1;
 
     public void run() {
+        addMouseListeners();
         createPath();
         move();
 
@@ -40,11 +42,42 @@ public class MouseLoopSecond extends WindowProgram {
         }
     }
 
-    private void moveRed() {
+    private void moveBlue() {
+        if (currentSelected != currentBlue) {
+            GRect rectAfter = list.get(currentBlue);
+            rectAfter.setFillColor(Color.GREEN);
+
+            if (currentBlue < list.size() - 1) {
+                currentBlue++;
+            } else {
+                currentBlue = 0;
+            }
+            GRect rectCurrent = list.get(currentBlue);
+            rectCurrent.setFillColor(Color.blue);
+        } else {
+            GRect rectAfter = list.get(currentBlue);
+            rectAfter.setFillColor(Color.GREEN);
+
+            if (currentBlue < list.size() - 1) {
+                currentBlue--;
+            } else {
+                currentBlue = 0;
+            }
+            GRect rectCurrent = list.get(currentBlue);
+            rectCurrent.setFillColor(Color.blue);
+        }
 
     }
 
-    private void moveBlue() {
+    public void mouseMoved (MouseEvent e) {
+        Object selectedObject = getElementAt(e.getX(), e.getX());
+
+        if (selectedObject != null) {
+            currentSelected = list.indexOf(selectedObject);
+        }
+    }
+
+    private void moveRed() {
 
     }
 
@@ -70,7 +103,7 @@ public class MouseLoopSecond extends WindowProgram {
 
         for (int i = N - 3; i >= 0; i--) {
             y = SQUARE_OFFSET + (int) sideSquare + (int) sideSquare * i;
-            newRect(x, y, sideSquare, Color.red);
+            newRect(x, y, sideSquare, Color.GREEN);
         }
     }
 
